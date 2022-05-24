@@ -1,0 +1,161 @@
+Creat Table----------
+
+CREATE TABLE employee (
+employee_id NUMBER(10),
+first_name VARCHAR(20),
+last_name VARCHAR(20),
+department_name VARCHAR(20),
+salary NUMBER(10,2)); 
+
+
+Alter Table------------ creat new colomn
+ALTER TABLE employee
+ADD Joining_date DATE;
+
+Alter Table----DROP COLUMN-------- 
+
+ALTER TABLE employee
+DROP COLUMN joining_date;
+
+Alter table , Modify datetype -----
+
+ALTER TABLE employee 
+MODIFY first_name VARCHAR(30);
+
+Alter table, Rename Calumn--------
+
+ALTER TABLE employee 
+RENAME COLUMN first_name to fst_name;
+
+Alter table, Rename table--------
+ALTER TABLE employee 
+RENAME to employee_mindgate;
+
+Drop TABLE------
+
+DROP TABLE employee_mindgate;
+
+***  Constrain***** --------
+CREATE TABLE employee (
+employee_id NUMBER(10) NOT NULL,
+first_name VARCHAR(20) NOT NULL,
+last_name VARCHAR(20) NOT NULL,
+department_name VARCHAR(20)NOT NULL,
+salary NUMBER(10,2) NOT NULL
+); 
+
+
+Primary Key------------
+CREATE TABLE purchase_order(
+purchase_order_id NUMBER(10) PRIMARY KEY,
+company_name VARCHAR(50)NOT NULL,
+amount NUMBER(10,2) NOT NULL
+);
+
+Discribe table--------
+DESC purchase_order;
+
+FOR FINDING TABLE CONSTRAIN DATA-------------
+SELECT* FROM user_constraints
+where table_name= 'PURCHASE_ORDER';
+
+Standerd way write a query for primary key----------
+CREATE TABLE purchase_order(
+purchase_order_id NUMBER(10),
+company_name VARCHAR(50)NOT NULL,
+amount NUMBER(10,2) NOT NULL,
+CONSTRAINT pk_purchase_order_id PRIMARY KEY(purchase_order_id)
+);
+
+*Forein Key-------------
+
+1drop EMPLOYEE table;
+
+2
+CREATE TABLE project_details(
+project_id NUMBER(10),
+name VARCHAR(20),
+start_date DATE,
+end_date DATE,
+CONSTRAINT pk_project_id PRIMARY KEY (project_id)
+);
+
+3 INSERT RECORDS***
+INSERT INTO project_details
+VALUES (1, 'payTM', TO_DATE('2022-01-01', 'YYYY-MM-DD'),
+ TO_DATE('2025-01-01', 'YYYY-MM-DD'));
+INSERT INTO project_details
+VALUES (3, 'PhonePay', TO_DATE('2022-01-01', 'YYYY-MM-DD'), TO_DATE('2025-01-01', 'YYYY-MM-DD'));
+
+4creat employe child table*****
+CREATE TABLE employee (
+employee_id NUMBER(10),
+name VARCHAR(50),
+salary NUMBER(10,2),
+project_id NUMBER(10),
+CONSTRAINT pk_employee_id PRIMARY KEY(employee_id),
+CONSTRAINT FK_project_id FOREIGN KEY(project_id)
+REFERENCES project_details(project_id)
+);
+
+INSERT INTO employee
+VALUES (101, 'Shubham Labde', 29000,3);
+
+INSERT INTO employee
+VALUES (102, 'Pradip Khandare', 25000,1);
+INSERT INTO employee
+VALUES (103, 'Pawan Zade', 40000,2);
+INSERT INTO employee
+VALUES (104, 'Yogesh Nanwate', 26000,2);
+INSERT INTO employee
+VALUES (105, 'Tejas Zambare', 29000,3);
+INSERT INTO employee
+VALUES (106, 'Nitin kadam', 32000,1);
+INSERT INTO employee
+VALUES (107, 'Sanket', 22000,3);
+select * from employee;
+
+---Unique Constraint----------
+
+CREATE TABLE employee(
+employee_id NUMBER(10),
+name VARCHAR(20) NOT NULL,
+contact_number VARCHAR(10)NOT NULL UNIQUE,
+salary VARCHAR(20)
+);
+
+INSERT INTO employee
+VALUES (101, 'Shubham Labde',7028053421, 29000);
+INSERT INTO employee
+VALUES (102, 'Shubham Labde',7028053421, 29000);
+
+
+Check constraint------------
+
+CREATE TABLE employee(
+employee_id VARCHAR(10)CHECK (employee_id LIKE 'MGS%'),
+name VARCHAR(20) NOT NULL,
+contact_number VARCHAR(10)NOT NULL UNIQUE,
+salary VARCHAR(20) CHECK (salary>0)
+);
+
+INSERT INTO employee
+VALUES ('MGS101', 'Shubham Labde',7028053421, 29000);
+
+*Default----------------------------------
+
+CREATE TABLE employee(
+employee_id VARCHAR(10),
+name VARCHAR(20) NOT NULL,
+contact_number VARCHAR(10)NOT NULL,
+salary VARCHAR(20),
+city VARCHAR(20) DEFAULT 'Mumbai'
+);
+
+INSERT INTO employee
+VALUES ('MGS101', 'Shubham Labde',7028053421, 29000, DEFAULT);
+
+SELECT* FROM employee;
+INSERT INTO employee(employee_id, name, contact_number, salary)
+VALUES ('MGS101', 'Shubham Labde',7028053421, 29000);
+
